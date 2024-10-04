@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+<h1>This is Home page.</h1>
+<div class="container-fluid row d-flex justify-content-around">
+  {% for d in data %}
+  <div class="card col-sm-3 mx-2 mt-5">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{d.task_titel}} <small>{{d.task_assaign_date}}</small>
+      </h5>
+      <p class="card-text">{{d.task_description}}</p>
+      <big>Category :</big>
+      {% for cat in d.task_category.all %}
+      <small>{{cat}}</small>
+      {% endfor %} <br />
+
+      {% if d.is_completed == False %}
+      <a href="{% url 'edit_task' d.id %}" class="btn btn-warning mt-5">Edit</a>
+      <a href="{% url 'delete_task' d.id %}" class="btn btn-danger mt-5"
+        >delete</a
+      >
+      {% else %}
+      <a href="#" class="btn btn-success mt-5">completed</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
